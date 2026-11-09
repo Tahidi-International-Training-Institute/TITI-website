@@ -1,0 +1,90 @@
+-- TITI: EXTEND APPLICATION RECORDS
+
+ALTER TABLE public.applications
+ADD COLUMN IF NOT EXISTS highest_qualification TEXT,
+ADD COLUMN IF NOT EXISTS awarding_institution TEXT,
+ADD COLUMN IF NOT EXISTS year_completed INTEGER;
+
+-- Replace the earlier submission function
+DROP FUNCTION IF EXISTS public.submit_titi_application(
+    TEXT, TEXT, TEXT, TEXT, DATE, TEXT, TEXT, TEXT, TEXT, UUID
+);
+
+CREATE OR REPLACE FUNCTION public.submit_titi_application(
+    p_first_name TEXT,
+    p_middle_name TEXT,
+    p_last_name TEXT,
+    p_gender TEXT,
+    p_date_of_birth DATE,
+    p_nationality TEXT,
+    p_phone_number TEXT,
+    p_email TEXT,
+    p_residential_address TEXT,
+    p_highest_qualification TEXT,
+    p_awarding_institution TEXT,
+    p_year_completed INTEGER,
+    p_programme_id UUID
+)
+RETURNS TEXT
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path = ''
+AS $$
+DECLARE
+    v_reference TEXT;
+BEGIN
+    IF NULLIF(pg_catalog.btrim(p_first_name), '') IS NULL
+       OR NULLIF(pg_catalog.btrim(p_last_name), '') IS NULL
+       OR NULLIF(pg_catalog.btrim(p_phone_number), '') IS NULL
+       OR NULLIF(pg_catalog.btrim(p_highest_qualification), '') IS NULL
+       OR NULLIF(pg_catalog.btrim(p_awarding_institution), '') IS NULL
+       OR p_programme_id IS NULL THEN
+        RAISE EXCEPTION 'Complete all required fields.';
+    END IF;
+
+    IF p_year_completed IS NOT NULL
+       AND (p_year_completed < 1950 OR
+            p_year_completed > EXTRACT(YEAR FROM CURRENT_DATE)::INTEGER) THEN
+        RAISE EXCEPTION 'Invalid year of completion.';
+    END IF;
+
+    IF NOT EXISTS (
+        SELECT 1 FROM public.programmes
+        WHERE id = p_programme_id
+        AND application_open = TRUE
+    ) THEN
+        RAISE EXCEPTION 'Selected programme is unavailable.';
+    END IF;
+
+    INSERT INTO public.applications (
+        first_name, middle_name, last_name, gender,
+        date_of_birth, nationality, phone_number, email,
+        residential_address, highest_qualification,
+        awarding_institution, year_completed, programme_id
+    )
+    VALUES (
+        pg_catalog.btrim(p_first_name),
+        NULLIF(pg_catalog.btrim(p_middle_name), ''),
+        pg_catalog.btrim(p_last_name),
+        p_gender, p_date_of_birth, p_nationality,
+        pg_catalog.btrim(p_phone_number),
+        NULLIF(pg_catalog.btrim(p_email), ''),
+        p_residential_address,
+        pg_catalog.btrim(p_highest_qualification),
+        pg_catalog.btrim(p_awarding_institution),
+        p_year_completed,
+        p_programme_id
+    )
+    RETURNING reference_number INTO v_reference;
+
+    RETURN v_reference;
+END;
+$$;
+
+REVOKE ALL ON FUNCTION public.submit_titi_application(
+    TEXT, TEXT, TEXT, TEXT, DATE, TEXT, TEXT, TEXT, TEXT, TEXT, TEXT, INTEGER, UUID
+) FROM PUBLIC;
+
+GRANT EXECUTE ON FUNCTION public.submit_titi_application(
+    TEXT, TEXT, TEXT, TEXT, DATE, TEXT, TEXT, TEXT, TEXT, TEXT, TEXT, INTEGER, UUID
+) TO anon, authenticated;
