@@ -1,90 +1,542 @@
--- TITI: EXTEND APPLICATION RECORDS
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apply Online | Tahidi International Training Institute</title>
+<meta name="description" content="Apply online for admission to Tahidi International Training Institute. Explore our Diploma, Certificate and Short Course programmes.">
 
-ALTER TABLE public.applications
-ADD COLUMN IF NOT EXISTS highest_qualification TEXT,
-ADD COLUMN IF NOT EXISTS awarding_institution TEXT,
-ADD COLUMN IF NOT EXISTS year_completed INTEGER;
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
--- Replace the earlier submission function
-DROP FUNCTION IF EXISTS public.submit_titi_application(
-    TEXT, TEXT, TEXT, TEXT, DATE, TEXT, TEXT, TEXT, TEXT, UUID
+<style>
+:root {
+  --maroon:#7A1220;
+  --navy:#0F2A5E;
+  --gold:#D4AF37;
+  --white:#fff;
+  --grey:#f5f5f5;
+  --text:#273247;
+}
+* {box-sizing:border-box}
+body {
+  margin:0;
+  font-family:'Jost',sans-serif;
+  color:var(--text);
+  background:#f5f6f9;
+}
+header {
+  background:white;
+  border-bottom:3px solid var(--gold);
+}
+.header-inner {
+  max-width:1150px;
+  margin:auto;
+  padding:15px 22px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+}
+.brand {
+  display:flex;
+  align-items:center;
+  gap:13px;
+}
+.brand img {
+  width:75px;
+  height:75px;
+  object-fit:contain;
+}
+.brand h1 {
+  font-size:19px;
+  line-height:1.2;
+  color:var(--maroon);
+  margin:0;
+  font-weight:800;
+}
+.brand p {
+  margin:5px 0 0;
+  font-size:12px;
+  letter-spacing:2px;
+  color:var(--navy);
+  font-weight:700;
+}
+nav a {
+  color:var(--navy);
+  text-decoration:none;
+  font-weight:600;
+  margin-left:22px;
+  font-size:14px;
+}
+nav a:hover {color:var(--maroon)}
+.hero {
+  background:linear-gradient(110deg,#7A1220,#0F2A5E);
+  color:white;
+  padding:48px 20px;
+  text-align:center;
+}
+.hero .eyebrow {
+  color:#f2d777;
+  font-size:12px;
+  letter-spacing:3px;
+  font-weight:700;
+}
+.hero h2 {
+  margin:12px 0;
+  font-size:34px;
+  font-weight:800;
+}
+.hero p {
+  margin:0;
+  font-size:15px;
+  opacity:.92;
+}
+.container {
+  max-width:950px;
+  margin:35px auto 60px;
+  padding:0 18px;
+}
+.notice {
+  background:#fff8e5;
+  border-left:4px solid var(--gold);
+  padding:14px 17px;
+  margin-bottom:22px;
+  font-size:14px;
+}
+.form-card {
+  background:white;
+  border-radius:10px;
+  padding:30px;
+  box-shadow:0 5px 25px rgba(15,42,94,.07);
+}
+.section-title {
+  color:var(--navy);
+  font-size:18px;
+  font-weight:800;
+  border-bottom:1px solid #e8eaf0;
+  padding-bottom:11px;
+  margin:25px 0 19px;
+}
+.section-title:first-child {margin-top:0}
+.grid {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:17px;
+}
+.field {
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+.field.full {grid-column:1/-1}
+label {
+  font-size:13px;
+  font-weight:700;
+  color:#263750;
+}
+label span {color:var(--maroon)}
+input,select,textarea {
+  width:100%;
+  border:1px solid #d9deea;
+  border-radius:5px;
+  padding:12px;
+  background:white;
+  font-family:inherit;
+  font-size:14px;
+  color:var(--text);
+  outline:none;
+}
+input:focus,select:focus,textarea:focus {
+  border-color:var(--navy);
+  box-shadow:0 0 0 2px rgba(15,42,94,.08);
+}
+textarea {min-height:85px;resize:vertical}
+.help {
+  font-size:12px;
+  color:#697386;
+}
+.submit-btn {
+  display:block;
+  width:100%;
+  margin-top:27px;
+  border:0;
+  border-radius:5px;
+  padding:15px;
+  background:var(--maroon);
+  color:white;
+  font-family:inherit;
+  font-size:16px;
+  font-weight:800;
+  cursor:pointer;
+}
+.submit-btn:hover {background:#5d0d18}
+.submit-btn:disabled {opacity:.6;cursor:wait}
+#message {
+  display:none;
+  margin-top:20px;
+  padding:17px;
+  border-radius:6px;
+  font-size:14px;
+}
+.success {display:block!important;background:#e9f7ef;color:#145b32;border:1px solid #b8e1c8}
+.error {display:block!important;background:#fff0f0;color:#8b1b1b;border:1px solid #edc3c3}
+.reference {
+  display:block;
+  margin:10px 0;
+  font-size:23px;
+  font-weight:800;
+  letter-spacing:1px;
+}
+footer {
+  background:var(--navy);
+  color:white;
+  text-align:center;
+  padding:25px 15px;
+  font-size:13px;
+}
+footer strong {color:#f2d777}
+@media(max-width:650px) {
+  .header-inner {flex-direction:column}
+  nav a {margin:0 8px}
+  .hero h2 {font-size:27px}
+  .form-card {padding:20px 15px}
+  .grid {grid-template-columns:1fr}
+  .field.full {grid-column:auto}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="brand">
+      <img
+        src="https://raw.githubusercontent.com/Tahidi-International-Training-Institute/TITI-website/main/TITI%20LOGO.png"
+        alt="TITI Logo"
+        onerror="this.style.display='none'">
+      <div>
+        <h1>TAHIDI INTERNATIONAL<br>TRAINING INSTITUTE</h1>
+        <p>BREAKING THE LIMITS</p>
+      </div>
+    </div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="index.html#about">About</a>
+      <a href="index.html#programmes">Programmes</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="eyebrow">ADMISSIONS OFFICE</div>
+  <h2>ONLINE APPLICATION</h2>
+  <p>Begin your academic journey with Tahidi International Training Institute.</p>
+</section>
+
+<main class="container">
+
+  <div class="notice">
+    <strong>Admissions information:</strong>
+    Complete the application form carefully. Fields marked with
+    <span style="color:#7A1220">*</span> are compulsory.
+  </div>
+
+  <form class="form-card" id="applicationForm">
+
+    <h3 class="section-title">01. Programme Selection</h3>
+
+    <div class="grid">
+      <div class="field">
+        <label>Programme Level <span>*</span></label>
+        <select id="programmeLevel" required>
+          <option value="">Select programme level</option>
+          <option value="Diploma">Diploma</option>
+          <option value="Certificate">Certificate</option>
+          <option value="Short Course">Short Course</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Programme of Study <span>*</span></label>
+        <select id="programme" required disabled>
+          <option value="">Select programme level first</option>
+        </select>
+        <small class="help" id="programmeHelp">Programmes will load from TITI admissions database.</small>
+      </div>
+    </div>
+
+    <h3 class="section-title">02. Personal Information</h3>
+
+    <div class="grid">
+      <div class="field">
+        <label>First Name <span>*</span></label>
+        <input id="firstName" required maxlength="80" autocomplete="given-name">
+      </div>
+
+      <div class="field">
+        <label>Middle Name</label>
+        <input id="middleName" maxlength="80">
+      </div>
+
+      <div class="field">
+        <label>Last Name <span>*</span></label>
+        <input id="lastName" required maxlength="80" autocomplete="family-name">
+      </div>
+
+      <div class="field">
+        <label>Gender</label>
+        <select id="gender">
+          <option value="">Select gender</option>
+          <option>Male</option>
+          <option>Female</option>
+          <option>Other</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Date of Birth</label>
+        <input type="date" id="dob">
+      </div>
+
+      <div class="field">
+        <label>Nationality</label>
+        <input id="nationality" value="Ugandan" maxlength="80">
+      </div>
+    </div>
+
+    <h3 class="section-title">03. Contact Information</h3>
+
+    <div class="grid">
+      <div class="field">
+        <label>Telephone / WhatsApp Number <span>*</span></label>
+        <input id="phone" type="tel" required maxlength="30" autocomplete="tel">
+      </div>
+
+      <div class="field">
+        <label>Email Address</label>
+        <input id="email" type="email" maxlength="150" autocomplete="email">
+      </div>
+
+      <div class="field full">
+        <label>Residential Address</label>
+        <textarea id="address" maxlength="500"></textarea>
+      </div>
+    </div>
+
+    <h3 class="section-title">04. Academic Qualifications</h3>
+
+    <div class="grid">
+      <div class="field">
+        <label>Highest Academic Qualification <span>*</span></label>
+        <select id="qualification" required>
+          <option value="">Select qualification</option>
+          <option>Primary Leaving Examination (PLE)</option>
+          <option>UCE / O-Level</option>
+          <option>UACE / A-Level</option>
+          <option>Certificate</option>
+          <option>Diploma</option>
+          <option>Higher Diploma</option>
+          <option>Bachelor's Degree</option>
+          <option>Other</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Awarding Institution <span>*</span></label>
+        <input id="institution" required maxlength="180">
+      </div>
+
+      <div class="field">
+        <label>Year Completed</label>
+        <input id="yearCompleted" type="number" min="1950" max="2026">
+      </div>
+    </div>
+
+    <div class="notice" style="margin-top:25px">
+      <strong>Declaration:</strong>
+      By submitting this form, I confirm that the information provided
+      is accurate to the best of my knowledge.
+    </div>
+
+    <button type="submit" class="submit-btn" id="submitButton">
+      SUBMIT APPLICATION
+    </button>
+
+    <div id="message" role="status" aria-live="polite"></div>
+
+  </form>
+</main>
+
+<footer>
+  <strong>TAHIDI INTERNATIONAL TRAINING INSTITUTE</strong><br>
+  BREAKING THE LIMITS<br><br>
+  Admissions Portal | Powered by TITI
+</footer>
+
+<script>
+const SUPABASE_URL = 'https://jlmbiauilmajuvrnuaul.supabase.co';
+
+const SUPABASE_KEY = 'sb_publishable_b3g7gWtSGVtI5lCyCR5LxA_KjFXh08W';
+
+const db = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
 );
 
-CREATE OR REPLACE FUNCTION public.submit_titi_application(
-    p_first_name TEXT,
-    p_middle_name TEXT,
-    p_last_name TEXT,
-    p_gender TEXT,
-    p_date_of_birth DATE,
-    p_nationality TEXT,
-    p_phone_number TEXT,
-    p_email TEXT,
-    p_residential_address TEXT,
-    p_highest_qualification TEXT,
-    p_awarding_institution TEXT,
-    p_year_completed INTEGER,
-    p_programme_id UUID
-)
-RETURNS TEXT
-LANGUAGE plpgsql
-SECURITY DEFINER
-SET search_path = ''
-AS $$
-DECLARE
-    v_reference TEXT;
-BEGIN
-    IF NULLIF(pg_catalog.btrim(p_first_name), '') IS NULL
-       OR NULLIF(pg_catalog.btrim(p_last_name), '') IS NULL
-       OR NULLIF(pg_catalog.btrim(p_phone_number), '') IS NULL
-       OR NULLIF(pg_catalog.btrim(p_highest_qualification), '') IS NULL
-       OR NULLIF(pg_catalog.btrim(p_awarding_institution), '') IS NULL
-       OR p_programme_id IS NULL THEN
-        RAISE EXCEPTION 'Complete all required fields.';
-    END IF;
+const levelSelect = document.getElementById('programmeLevel');
+const programmeSelect = document.getElementById('programme');
+const programmeHelp = document.getElementById('programmeHelp');
+const form = document.getElementById('applicationForm');
+const submitButton = document.getElementById('submitButton');
+const message = document.getElementById('message');
 
-    IF p_year_completed IS NOT NULL
-       AND (p_year_completed < 1950 OR
-            p_year_completed > EXTRACT(YEAR FROM CURRENT_DATE)::INTEGER) THEN
-        RAISE EXCEPTION 'Invalid year of completion.';
-    END IF;
+let programmeRecords = [];
 
-    IF NOT EXISTS (
-        SELECT 1 FROM public.programmes
-        WHERE id = p_programme_id
-        AND application_open = TRUE
-    ) THEN
-        RAISE EXCEPTION 'Selected programme is unavailable.';
-    END IF;
+function showMessage(text, type) {
+  message.className = type;
+  message.textContent = text;
+  message.style.display = 'block';
+}
 
-    INSERT INTO public.applications (
-        first_name, middle_name, last_name, gender,
-        date_of_birth, nationality, phone_number, email,
-        residential_address, highest_qualification,
-        awarding_institution, year_completed, programme_id
-    )
-    VALUES (
-        pg_catalog.btrim(p_first_name),
-        NULLIF(pg_catalog.btrim(p_middle_name), ''),
-        pg_catalog.btrim(p_last_name),
-        p_gender, p_date_of_birth, p_nationality,
-        pg_catalog.btrim(p_phone_number),
-        NULLIF(pg_catalog.btrim(p_email), ''),
-        p_residential_address,
-        pg_catalog.btrim(p_highest_qualification),
-        pg_catalog.btrim(p_awarding_institution),
-        p_year_completed,
-        p_programme_id
-    )
-    RETURNING reference_number INTO v_reference;
+async function loadProgrammes() {
+  programmeSelect.disabled = true;
+  programmeSelect.innerHTML =
+    '<option value="">Loading programmes...</option>';
 
-    RETURN v_reference;
-END;
-$$;
+  const { data, error } = await db
+    .from('programmes')
+    .select('id, programme_name, programme_level')
+    .eq('application_open', true)
+    .order('programme_name');
 
-REVOKE ALL ON FUNCTION public.submit_titi_application(
-    TEXT, TEXT, TEXT, TEXT, DATE, TEXT, TEXT, TEXT, TEXT, TEXT, TEXT, INTEGER, UUID
-) FROM PUBLIC;
+  if (error) {
+    programmeSelect.innerHTML =
+      '<option value="">Unable to load programmes</option>';
+    programmeHelp.textContent =
+      'Please refresh the page or contact TITI admissions.';
+    return;
+  }
 
-GRANT EXECUTE ON FUNCTION public.submit_titi_application(
-    TEXT, TEXT, TEXT, TEXT, DATE, TEXT, TEXT, TEXT, TEXT, TEXT, TEXT, INTEGER, UUID
-) TO anon, authenticated;
+  programmeRecords = data || [];
+  filterProgrammes();
+}
+
+function filterProgrammes() {
+  const selectedLevel = levelSelect.value;
+
+  programmeSelect.innerHTML =
+    '<option value="">Select programme</option>';
+
+  const filtered = programmeRecords.filter(
+    p => p.programme_level === selectedLevel
+  );
+
+  if (!selectedLevel) {
+    programmeSelect.disabled = true;
+    programmeSelect.innerHTML =
+      '<option value="">Select programme level first</option>';
+    return;
+  }
+
+  if (!filtered.length) {
+    programmeSelect.disabled = true;
+    programmeSelect.innerHTML =
+      '<option value="">No programmes currently available</option>';
+    return;
+  }
+
+  filtered.forEach(p => {
+    const option = document.createElement('option');
+    option.value = p.id;
+    option.textContent = p.programme_name;
+    programmeSelect.appendChild(option);
+  });
+
+  programmeSelect.disabled = false;
+  programmeHelp.textContent =
+    filtered.length + ' programme(s) available.';
+}
+
+levelSelect.addEventListener('change', filterProgrammes);
+
+form.addEventListener('submit', async function(event) {
+  event.preventDefault();
+
+  message.style.display = 'none';
+
+  const selectedProgramme = programmeSelect.value;
+
+  if (!selectedProgramme) {
+    showMessage('Please select an academic programme.', 'error');
+    return;
+  }
+
+  const dob = document.getElementById('dob').value;
+  const yearValue = document.getElementById('yearCompleted').value;
+
+  if (dob && dob > new Date().toISOString().slice(0, 10)) {
+    showMessage('Date of birth cannot be in the future.', 'error');
+    return;
+  }
+
+  submitButton.disabled = true;
+  submitButton.textContent = 'SUBMITTING APPLICATION...';
+
+  const application = {
+    p_first_name: document.getElementById('firstName').value.trim(),
+    p_middle_name: document.getElementById('middleName').value.trim() || null,
+    p_last_name: document.getElementById('lastName').value.trim(),
+    p_gender: document.getElementById('gender').value || null,
+    p_date_of_birth: dob || null,
+    p_nationality: document.getElementById('nationality').value.trim() || 'Not specified',
+    p_phone_number: document.getElementById('phone').value.trim(),
+    p_email: document.getElementById('email').value.trim() || null,
+    p_residential_address: document.getElementById('address').value.trim() || null,
+    p_highest_qualification: document.getElementById('qualification').value,
+    p_awarding_institution: document.getElementById('institution').value.trim(),
+    p_year_completed: yearValue ? Number(yearValue) : null,
+    p_programme_id: selectedProgramme
+  };
+
+  try {
+    const { data, error } = await db.rpc(
+      'submit_titi_application',
+      application
+    );
+
+    if (error) throw error;
+
+    showMessage(
+      'Your application has been received successfully. Your application reference number is: ' +
+      data +
+      '. Please save this number for future tracking.',
+      'success'
+    );
+
+    form.reset();
+    programmeSelect.innerHTML =
+      '<option value="">Select programme level first</option>';
+    programmeSelect.disabled = true;
+
+    window.scrollTo({top:message.getBoundingClientRect().top + window.scrollY - 120,behavior:'smooth'});
+
+  } catch (error) {
+    console.error('Application submission error:', error);
+    showMessage(
+      'We could not submit your application. Please check your information and try again. If the problem continues, contact TITI admissions.',
+      'error'
+    );
+  } finally {
+    submitButton.disabled = false;
+    submitButton.textContent = 'SUBMIT APPLICATION';
+  }
+});
+
+loadProgrammes();
+</script>
+
+</body>
+</html>
