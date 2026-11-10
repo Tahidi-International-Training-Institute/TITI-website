@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -428,7 +429,7 @@ section { padding: 62px 0; }
   margin-bottom: 7px;
 }
 
-/* TITI THREE-COLUMN FOOTER */
+/* PREMIUM TITI FOOTER */
 .site-footer {
   background: #091B3D;
   color: #FFFFFF;
@@ -475,6 +476,7 @@ section { padding: 62px 0; }
   font-size: 13px;
   line-height: 1.8;
   margin-top: 13px;
+  max-width: 300px;
 }
 
 .footer-column h3 {
@@ -483,11 +485,12 @@ section { padding: 62px 0; }
   font-weight: 800;
   margin-bottom: 18px;
   letter-spacing: .5px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(212,175,55,.35);
 }
 
 .footer-column p,
 .footer-column a {
-  display: block;
   color: #D5DBEA;
   font-size: 13px;
   line-height: 1.9;
@@ -506,23 +509,52 @@ section { padding: 62px 0; }
   margin-bottom: 8px;
 }
 
+.footer-column li a {
+  display: inline-block;
+}
+
+.footer-column li a::before {
+  content: "›";
+  color: var(--gold);
+  margin-right: 9px;
+  font-weight: 700;
+}
+
 .footer-column a:hover {
   color: var(--gold);
 }
 
 .footer-column p {
-  margin-bottom: 10px;
+  margin-bottom: 12px;
+}
+
+.footer-column p strong {
+  color: white;
+  font-weight: 700;
+}
+
+.footer-contact-link {
+  display: inline-block;
+  color: #D5DBEA;
+  overflow-wrap: anywhere;
+}
+
+.footer-website {
+  color: var(--gold) !important;
+  font-weight: 600;
 }
 
 .footer-bottom {
   border-top: 1px solid rgba(255,255,255,.18);
   text-align: center;
   padding: 18px 10px;
+  background: rgba(0,0,0,.12);
 }
 
 .copyright {
   font-size: 12px;
   color: #CBD3E0;
+  letter-spacing: .3px;
 }
 
 /* RESPONSIVE DESIGN */
@@ -874,24 +906,25 @@ section { padding: 62px 0; }
 
 </main>
 
-<!-- TITI THREE-COLUMN FOOTER -->
+<!-- TITI PROFESSIONAL THREE-COLUMN FOOTER -->
 <footer class="site-footer">
   <div class="container footer-grid">
 
-    <!-- COLUMN ONE: INSTITUTE BRAND -->
+    <!-- COLUMN ONE: INSTITUTE IDENTITY -->
     <div class="footer-brand">
       <img src="TITI%20LOGO.png" alt="TITI Official Logo">
-      <h3>TAHIDI INTERNATIONAL TRAINING INSTITUTE</h3>
+      <h3>TAHIDI INTERNATIONAL<br>TRAINING INSTITUTE</h3>
       <p class="footer-motto">BREAKING THE LIMITS</p>
       <p class="footer-description">
         Committed to quality education, practical training and professional
-        development.
+        development. Empowering learners with knowledge and skills for a
+        brighter future.
       </p>
     </div>
 
     <!-- COLUMN TWO: QUICK LINKS -->
     <div class="footer-column">
-      <h3>QUICK LINKS</h3>
+      <h3>EXPLORE TITI</h3>
       <ul>
         <li><a href="#home">Home</a></li>
         <li><a href="#about">About the Institute</a></li>
@@ -908,19 +941,32 @@ section { padding: 62px 0; }
       <h3>CONTACT INFORMATION</h3>
 
       <p>
-        <strong>Telephone:</strong>
-        <a href="tel:+256776433303">+256 776 433303</a>
+        <strong>Phone</strong><br>
+        <a class="footer-contact-link" href="tel:+256776433303">
+          +256 776 433303
+        </a>
       </p>
 
       <p>
-        <strong>Email:</strong>
-        <a href="mailto:tahidiinternationalinstitute@gmail.com">
+        <strong>Email</strong><br>
+        <a class="footer-contact-link"
+           href="mailto:tahidiinternationalinstitute@gmail.com">
           tahidiinternationalinstitute@gmail.com
         </a>
       </p>
 
       <p>
-        <strong>Location:</strong><br>
+        <strong>Website</strong><br>
+        <a class="footer-contact-link footer-website"
+           href="https://tinyurl.com/TITI-WEBSITE"
+           target="_blank"
+           rel="noopener noreferrer">
+          tinyurl.com/TITI-WEBSITE
+        </a>
+      </p>
+
+      <p>
+        <strong>Location</strong><br>
         Nangwe near Bilal High School,<br>
         Busia, Uganda
       </p>
@@ -928,10 +974,12 @@ section { padding: 62px 0; }
 
   </div>
 
+  <!-- COPYRIGHT -->
   <div class="footer-bottom">
     <p class="copyright">
       &copy; <span id="footer-year"></span>
-      Tahidi International Training Institute. All Rights Reserved.
+      Tahidi International Training Institute.
+      All Rights Reserved.
     </p>
   </div>
 </footer>
