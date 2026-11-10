@@ -64,7 +64,7 @@ header {
 }
 
 .header-inner {
-  min-height: 137px;
+  min-height: 160px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -432,67 +432,67 @@ section { padding: 62px 0; }
 .site-footer {
   background: #091B3D;
   color: #FFFFFF;
-  border-top: 4px solid var(--gold);
-  padding: 38px 0 0;
+  border-top: 5px solid var(--gold);
+  padding: 55px 0 0;
   text-align: left;
 }
 
 .footer-grid {
   display: grid;
   grid-template-columns: 1.1fr 0.9fr 1.35fr;
-  gap: 32px;
-  padding-bottom: 32px;
+  gap: 48px;
+  padding-bottom: 45px;
   align-items: start;
 }
 
 .footer-brand img {
-  width: 90px;
-  height: 90px;
+  width: 115px;
+  height: 115px;
   object-fit: contain;
   background: white;
   border-radius: 5px;
-  padding: 4px;
-  margin-bottom: 12px;
+  padding: 5px;
+  margin-bottom: 16px;
 }
 
 .footer-brand h3 {
   color: white;
-  font-size: 15px;
+  font-size: 18px;
   font-weight: 700;
-  line-height: 1.45;
+  line-height: 1.5;
 }
 
 .footer-motto {
   color: var(--gold);
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 700;
   letter-spacing: 2px;
-  margin-top: 5px;
+  margin-top: 8px;
 }
 
 .footer-brand p.footer-description {
   color: #D5DBEA;
-  font-size: 12px;
-  line-height: 1.75;
-  margin-top: 11px;
-  max-width: 300px;
+  font-size: 14px;
+  line-height: 1.85;
+  margin-top: 15px;
+  max-width: 330px;
 }
 
 .footer-column h3 {
   color: var(--gold);
-  font-size: 14px;
+  font-size: 17px;
   font-weight: 800;
-  margin-bottom: 15px;
-  letter-spacing: .4px;
-  padding-bottom: 8px;
+  margin-bottom: 20px;
+  letter-spacing: .5px;
+  padding-bottom: 11px;
   border-bottom: 1px solid rgba(212,175,55,.35);
 }
 
 .footer-column p,
 .footer-column a {
   color: #D5DBEA;
-  font-size: 12px;
-  line-height: 1.8;
+  font-size: 14px;
+  line-height: 2;
   text-decoration: none;
   overflow-wrap: anywhere;
   transition: .25s;
@@ -505,7 +505,7 @@ section { padding: 62px 0; }
 }
 
 .footer-column li {
-  margin-bottom: 7px;
+  margin-bottom: 11px;
 }
 
 .footer-column li a {
@@ -524,11 +524,12 @@ section { padding: 62px 0; }
 }
 
 .footer-column p {
-  margin-bottom: 12px;
+  margin-bottom: 17px;
 }
 
 .footer-column p strong {
   color: white;
+  font-size: 15px;
   font-weight: 700;
 }
 
@@ -546,19 +547,19 @@ section { padding: 62px 0; }
 .footer-bottom {
   border-top: 1px solid rgba(255,255,255,.18);
   text-align: center;
-  padding: 15px 10px;
+  padding: 20px 10px;
   background: rgba(0,0,0,.12);
 }
 
 .copyright {
-  font-size: 11px;
+  font-size: 13px;
   color: #CBD3E0;
   letter-spacing: .3px;
 }
 
 /* RESPONSIVE DESIGN */
 @media (max-width: 1000px) {
-  .header-inner { min-height: 120px; }
+  .header-inner { min-height: 135px; }
 
   .brand img {
     width: 120px;
@@ -569,6 +570,10 @@ section { padding: 62px 0; }
 
   nav { gap: 12px; }
   nav a { font-size: 11px; }
+
+  .footer-grid {
+    gap: 28px;
+  }
 }
 
 @media (max-width: 850px) {
@@ -610,7 +615,7 @@ section { padding: 62px 0; }
 
   .footer-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 24px;
+    gap: 30px;
   }
 
   .footer-brand {
@@ -672,7 +677,7 @@ section { padding: 62px 0; }
 
   .footer-grid {
     grid-template-columns: 1fr;
-    gap: 22px;
+    gap: 28px;
   }
 
   .footer-brand {
@@ -680,13 +685,30 @@ section { padding: 62px 0; }
   }
 
   .footer-brand img {
-    width: 82px;
-    height: 82px;
+    width: 100px;
+    height: 100px;
   }
 
-  .footer-brand h3 { font-size: 15px; }
+  .footer-brand h3 { font-size: 17px; }
 
-  .site-footer { padding-top: 30px; }
+  .footer-brand p.footer-description {
+    font-size: 14px;
+  }
+
+  .footer-column h3 {
+    font-size: 16px;
+  }
+
+  .footer-column p,
+  .footer-column a {
+    font-size: 14px;
+  }
+
+  .site-footer { padding-top: 38px; }
+
+  .footer-bottom {
+    padding: 18px 10px;
+  }
 }
 </style>
 </head>
@@ -921,7 +943,6 @@ section { padding: 62px 0; }
 <footer class="site-footer">
   <div class="container footer-grid">
 
-    <!-- COLUMN ONE: INSTITUTE IDENTITY -->
     <div class="footer-brand">
       <img src="TITI%20LOGO.png" alt="TITI Official Logo">
       <h3>TAHIDI INTERNATIONAL<br>TRAINING INSTITUTE</h3>
@@ -933,7 +954,6 @@ section { padding: 62px 0; }
       </p>
     </div>
 
-    <!-- COLUMN TWO: QUICK LINKS -->
     <div class="footer-column">
       <h3>EXPLORE TITI</h3>
       <ul>
@@ -947,7 +967,6 @@ section { padding: 62px 0; }
       </ul>
     </div>
 
-    <!-- COLUMN THREE: CONTACT INFORMATION -->
     <div class="footer-column">
       <h3>CONTACT INFORMATION</h3>
 
@@ -985,7 +1004,6 @@ section { padding: 62px 0; }
 
   </div>
 
-  <!-- COPYRIGHT -->
   <div class="footer-bottom">
     <p class="copyright">
       &copy; <span id="footer-year"></span>
