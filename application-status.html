@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Check your TITI admission application status online.">
+<title>Application Status | TITI</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+:root {
+    --primary: #7A1220;
+    --navy: #0F2A5E;
+    --gold: #D4AF37;
+    --white: #FFFFFF;
+    --light: #F5F5F5;
+    --text: #263449;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Jost', sans-serif;
+    background: var(--light);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.topbar {
+    background: var(--white);
+    border-bottom: 3px solid var(--gold);
+    padding: 22px 16px;
+    text-align: center;
+}
+
+.topbar h1 {
+    color: var(--primary);
+    font-size: 23px;
+    font-weight: 800;
+    letter-spacing: .3px;
+}
+
+.topbar p {
+    color: var(--navy);
+    font-size: 13px;
+    margin-top: 3px;
+}
+
+.navigation {
+    background: var(--navy);
+    padding: 12px 20px;
+    text-align: center;
+}
+
+.navigation a {
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.navigation a:hover {
+    text-decoration: underline;
+}
+
+main {
+    width: 100%;
+    max-width: 520px;
+    margin: 55px auto;
+    padding: 0 18px;
+    flex: 1;
+}
+
+.card {
+    background: white;
+    border-radius: 8px;
+    padding: 35px;
+    box-shadow: 0 5px 25px rgba(0,0,0,.06);
+}
+
+.card h2 {
+    color: var(--primary);
+    text-align: center;
+    font-size: 27px;
+    font-weight: 700;
+}
+
+.subtitle {
+    text-align: center;
+    color: #687386;
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 9px 0 25px;
+}
+
+label {
+    display: block;
+    color: var(--navy);
+    font-size: 14px;
+    font-weight: 600;
+    margin: 17px 0 7px;
+}
+
+input {
+    width: 100%;
+    height: 47px;
+    padding: 0 13px;
+    border: 1px solid #d5dbe3;
+    border-radius: 5px;
+    font-family: inherit;
+    font-size: 15px;
+    color: var(--text);
+    outline: none;
+}
+
+input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(122,18,32,.08);
+}
+
+button {
+    width: 100%;
+    min-height: 48px;
+    margin-top: 25px;
+    background: var(--primary);
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #5f0d18;
+}
+
+button:disabled {
+    opacity: .65;
+    cursor: wait;
+}
+
+.message {
+    display: none;
+    padding: 12px;
+    margin-top: 18px;
+    border-radius: 5px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.message.error {
+    display: block;
+    color: #9b1c1c;
+    background: #fff0f0;
+    border: 1px solid #f2cccc;
+}
+
+.message.info {
+    display: block;
+    color: var(--navy);
+    background: #edf3ff;
+    border: 1px solid #d5e1f5;
+}
+
+#result {
+    display: none;
+    margin-top: 25px;
+    padding: 22px;
+    background: #fafafa;
+    border: 1px solid #e1e4e8;
+    border-radius: 6px;
+}
+
+#result h3 {
+    color: var(--navy);
+    font-size: 19px;
+    margin-bottom: 15px;
+}
+
+.result-row {
+    padding: 11px 0;
+    border-bottom: 1px solid #e8e8e8;
+    font-size: 14px;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+.result-row strong {
+    display: block;
+    color: var(--navy);
+    margin-bottom: 3px;
+}
+
+.status {
+    display: inline-block;
+    padding: 7px 15px;
+    border-radius: 4px;
+    font-weight: 800;
+    font-size: 14px;
+    letter-spacing: .4px;
+}
+
+.admitted {
+    background: #dff4e5;
+    color: #146c2e;
+}
+
+.declined {
+    background: #fce1e1;
+    color: #a00000;
+}
+
+.pending {
+    background: #fff1ca;
+    color: #805600;
+}
+
+.unknown {
+    background: #e9edf2;
+    color: #34445a;
+}
+
+.remarks {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+footer {
+    background: var(--navy);
+    color: white;
+    text-align: center;
+    padding: 20px 15px;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+footer strong {
+    color: var(--gold);
+}
+
+@media(max-width: 600px) {
+    main {
+        margin: 30px auto;
+    }
+
+    .card {
+        padding: 25px 20px;
+    }
+
+    .topbar h1 {
+        font-size: 19px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header class="topbar">
+    <h1>TAHIDI INTERNATIONAL TRAINING INSTITUTE</h1>
+    <p>BREAKING THE LIMITS</p>
+</header>
+
+<nav class="navigation">
+    <a href="index.html">← Return to Homepage</a>
+</nav>
+
+<main>
+
+<section class="card">
+
+    <h2>Application Status</h2>
+
+    <p class="subtitle">
+        Welcome to the TITI admission status portal.
+        Enter your application reference number and registered
+        email address to check your admission decision.
+    </p>
+
+    <form id="statusForm">
+
+        <label for="reference">Application Reference Number</label>
+
+        <input
+            type="text"
+            id="reference"
+            placeholder="Enter your application reference"
+            autocomplete="off"
+            required
+        >
+
+        <label for="email">Registered Email Address</label>
+
+        <input
+            type="email"
+            id="email"
+            placeholder="Enter your registered email"
+            autocomplete="email"
+            required
+        >
+
+        <button type="submit" id="checkButton">
+            CHECK APPLICATION STATUS
+        </button>
+
+    </form>
+
+    <div id="message" class="message"
+         role="status" aria-live="polite"></div>
+
+    <section id="result" aria-live="polite">
+
+        <h3>Application Information</h3>
+
+        <div class="result-row">
+            <strong>Applicant Name</strong>
+            <span id="applicant"></span>
+        </div>
+
+        <div class="result-row">
+            <strong>Application Reference</strong>
+            <span id="refResult"></span>
+        </div>
+
+        <div class="result-row">
+            <strong>Admission Decision</strong>
+            <div>
+                <span id="statusResult" class="status"></span>
+            </div>
+        </div>
+
+        <div class="result-row">
+            <strong>Administrator's Remarks</strong>
+            <p id="remarks" class="remarks"></p>
+        </div>
+
+        <div class="result-row">
+            <strong>Application Submitted</strong>
+            <span id="dateResult"></span>
+        </div>
+
+    </section>
+
+</section>
+
+</main>
+
+<footer>
+    Tahidi International Training Institute<br>
+    <strong>BREAKING THE LIMITS</strong><br>
+    © 2026 TITI. All Rights Reserved.
+</footer>
+
+<script>
+
+// =====================================
+// SUPABASE CONNECTION
+// =====================================
+
+const SUPABASE_URL =
+    "https://jlmbiauilmajuvrnuaul.supabase.co";
+
+const SUPABASE_ANON_KEY =
+    "sb_publishable_b3g7gWtSGVtI5lCyCR5LxA_KjFXh08W";
+
+const supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+);
+
+// =====================================
+// APPLICATION STATUS CHECKER
+// =====================================
+
+const form = document.getElementById("statusForm");
+const button = document.getElementById("checkButton");
+const message = document.getElementById("message");
+const result = document.getElementById("result");
+
+function showMessage(text, type) {
+    message.textContent = text;
+    message.className = "message " + type;
+}
+
+function clearResults() {
+    result.style.display = "none";
+
+    document.getElementById("applicant").textContent = "";
+    document.getElementById("refResult").textContent = "";
+    document.getElementById("remarks").textContent = "";
+    document.getElementById("dateResult").textContent = "";
+    document.getElementById("statusResult").textContent = "";
+}
+
+form.addEventListener("submit", async function(event) {
+
+    event.preventDefault();
+
+    const reference = document.getElementById("reference")
+        .value.trim();
+
+    const email = document.getElementById("email")
+        .value.trim();
+
+    clearResults();
+    message.className = "message";
+    message.textContent = "";
+
+    button.disabled = true;
+    button.textContent = "CHECKING APPLICATION...";
+
+    showMessage(
+        "Please wait while we retrieve your application.",
+        "info"
+    );
+
+    try {
+
+        const { data, error } =
+            await supabaseClient.functions.invoke(
+                "check-application-status",
+                {
+                    body: {
+                        reference_number: reference,
+                        email: email
+                    }
+                }
+            );
+
+        if (error) {
+            throw error;
+        }
+
+        if (!data || !data.application) {
+            throw new Error(
+                data?.error ||
+                "Application details could not be retrieved."
+            );
+        }
+
+        const app = data.application;
+
+        // Applicant name
+        document.getElementById("applicant").textContent =
+            [app.first_name, app.middle_name, app.last_name]
+            .filter(Boolean)
+            .join(" ");
+
+        // Reference number
+        document.getElementById("refResult").textContent =
+            app.reference_number || "Not available";
+
+        // Admission decision
+        const statusElement =
+            document.getElementById("statusResult");
+
+        const status = (app.application_status || "")
+            .trim()
+            .toUpperCase();
+
+        const statusLabels = {
+            "ADMITTED": {
+                label: "APPROVED",
+                className: "admitted"
+            },
+            "DECLINED": {
+                label: "REJECTED",
+                className: "declined"
+            },
+            "SUBMITTED": {
+                label: "UNDER REVIEW",
+                className: "pending"
+            }
+        };
+
+        const decision = statusLabels[status] || {
+            label: "STATUS UNAVAILABLE",
+            className: "unknown"
+        };
+
+        statusElement.textContent = decision.label;
+        statusElement.className =
+            "status " + decision.className;
+
+        // Administrator's remarks
+        document.getElementById("remarks").textContent =
+            app.administrator_remarks ||
+            "No additional remarks at this time.";
+
+        // Submission date
+        let submissionDate = "Not available";
+
+        if (app.submitted_at) {
+            const parsedDate = new Date(app.submitted_at);
+
+            if (!Number.isNaN(parsedDate.getTime())) {
+                submissionDate = parsedDate.toLocaleDateString(
+                    "en-UG",
+                    {
+                        day: "2-digit",
+                        month: "long",
+                        year: "numeric"
+                    }
+                );
+            }
+        }
+
+        document.getElementById("dateResult").textContent =
+            submissionDate;
+
+        result.style.display = "block";
+
+        message.className = "message";
+        message.textContent = "";
+
+    } catch (error) {
+
+        console.error("Application status error:", error);
+
+        showMessage(
+            error.message ||
+            "Unable to check your application. Please try again later.",
+            "error"
+        );
+
+    } finally {
+
+        button.disabled = false;
+        button.textContent = "CHECK APPLICATION STATUS";
+
+    }
+
+});
+
+</script>
+
+</body>
+</html>
