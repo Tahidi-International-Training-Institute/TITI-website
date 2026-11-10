@@ -428,51 +428,21 @@ section { padding: 62px 0; }
   margin-bottom: 7px;
 }
 
-/* PROFESSIONAL TITI FOOTER */
-footer {
+/* TITI THREE-COLUMN FOOTER */
+.site-footer {
   background: #091B3D;
-  color: white;
-  padding: 55px 0 22px;
-  text-align: left;
+  color: #FFFFFF;
   border-top: 4px solid var(--gold);
+  padding: 55px 0 0;
+  text-align: left;
 }
 
-.footer-top {
+.footer-grid {
   display: grid;
-  grid-template-columns: 1.2fr 1fr 1fr;
-  gap: 55px;
-  padding-bottom: 38px;
+  grid-template-columns: 1.3fr 1fr 1.2fr;
+  gap: 40px;
+  padding-bottom: 40px;
   align-items: start;
-}
-
-.footer-column h3 {
-  color: var(--gold);
-  font-size: 16px;
-  font-weight: 800;
-  text-transform: uppercase;
-  margin-bottom: 19px;
-  letter-spacing: .8px;
-}
-
-.footer-column p,
-.footer-column a {
-  display: block;
-  color: #D5DBEA;
-  font-size: 13px;
-  line-height: 2;
-  overflow-wrap: anywhere;
-  transition: .25s;
-}
-
-.footer-column a:hover {
-  color: var(--gold);
-}
-
-.footer-brand {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  margin-bottom: 25px;
 }
 
 .footer-brand img {
@@ -482,32 +452,72 @@ footer {
   background: white;
   border-radius: 5px;
   padding: 4px;
-  flex-shrink: 0;
+  margin-bottom: 15px;
 }
 
-.footer-name {
+.footer-brand h3 {
   color: white;
   font-size: 16px;
-  font-weight: 800;
-  line-height: 1.35;
+  font-weight: 700;
+  line-height: 1.5;
 }
 
 .footer-motto {
   color: var(--gold);
-  letter-spacing: 1.8px;
   font-size: 11px;
   font-weight: 700;
+  letter-spacing: 2px;
   margin-top: 5px;
 }
 
-.footer-column .footer-email {
+.footer-brand p.footer-description {
+  color: #D5DBEA;
+  font-size: 13px;
+  line-height: 1.8;
+  margin-top: 13px;
+}
+
+.footer-column h3 {
+  color: var(--gold);
+  font-size: 16px;
+  font-weight: 800;
+  margin-bottom: 18px;
+  letter-spacing: .5px;
+}
+
+.footer-column p,
+.footer-column a {
+  display: block;
+  color: #D5DBEA;
+  font-size: 13px;
+  line-height: 1.9;
+  text-decoration: none;
   overflow-wrap: anywhere;
+  transition: .25s;
+}
+
+.footer-column ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-column li {
+  margin-bottom: 8px;
+}
+
+.footer-column a:hover {
+  color: var(--gold);
+}
+
+.footer-column p {
+  margin-bottom: 10px;
 }
 
 .footer-bottom {
-  border-top: 1px solid rgba(255,255,255,.22);
-  padding-top: 19px;
+  border-top: 1px solid rgba(255,255,255,.18);
   text-align: center;
+  padding: 18px 10px;
 }
 
 .copyright {
@@ -567,7 +577,7 @@ footer {
   .programme-grid { grid-template-columns: repeat(2, 1fr); }
   .quick-grid { grid-template-columns: repeat(2, 1fr); }
 
-  .footer-top {
+  .footer-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 30px;
   }
@@ -621,7 +631,7 @@ footer {
 
   .admissions h2 { font-size: 25px; }
 
-  .footer-top {
+  .footer-grid {
     grid-template-columns: 1fr;
     gap: 28px;
   }
@@ -631,9 +641,9 @@ footer {
     height: 82px;
   }
 
-  .footer-name { font-size: 15px; }
+  .footer-brand h3 { font-size: 15px; }
 
-  footer { padding-top: 42px; }
+  .site-footer { padding-top: 42px; }
 }
 </style>
 </head>
@@ -669,6 +679,7 @@ footer {
 </header>
 
 <main>
+
   <section class="hero" id="home">
     <div class="container">
       <h2>Welcome to Tahidi International Training Institute</h2>
@@ -860,73 +871,73 @@ footer {
       </div>
     </div>
   </section>
+
 </main>
 
-<!-- TITI PROFESSIONAL FOOTER -->
-<footer>
-  <div class="container">
-    <div class="footer-top">
+<!-- TITI THREE-COLUMN FOOTER -->
+<footer class="site-footer">
+  <div class="container footer-grid">
 
-      <div class="footer-column">
-        <div class="footer-brand">
-          <img src="TITI%20LOGO.png" alt="TITI Official Logo">
-          <div>
-            <div class="footer-name">
-              TAHIDI INTERNATIONAL TRAINING INSTITUTE
-            </div>
-            <div class="footer-motto">BREAKING THE LIMITS</div>
-          </div>
-        </div>
-
-        <h3>About Us</h3>
-        <a href="#about">About TITI</a>
-        <a href="#programmes">Our Programmes</a>
-        <a href="#admissions">Admissions</a>
-        <a href="#gallery">Our Campus</a>
-        <a href="#contact">Contact Us</a>
-      </div>
-
-      <div class="footer-column">
-        <h3>Contact Info</h3>
-        <p>
-          <strong>Contact:</strong><br>
-          <a href="tel:+256776433303">+256 776 433303</a>
-        </p>
-        <p>
-          <strong>Email:</strong><br>
-          <a class="footer-email" href="mailto:tahidiinternationalinstitute@gmail.com">
-            tahidiinternationalinstitute@gmail.com
-          </a>
-        </p>
-        <p>
-          <strong>Location:</strong><br>
-          Nangwe near Bilal High School,<br>
-          Busia, Uganda
-        </p>
-      </div>
-
-      <div class="footer-column">
-        <h3>Our Services</h3>
-        <a href="#programmes">Academic Programmes</a>
-        <a href="#programmes">Certificate and Diploma Programmes</a>
-        <a href="#admissions">Student Admissions</a>
-        <a href="#contact">Admissions Enquiries</a>
-        <a href="#gallery">Campus Information</a>
-        <a href="#contact">Student Support</a>
-      </div>
-
+    <!-- COLUMN ONE: INSTITUTE BRAND -->
+    <div class="footer-brand">
+      <img src="TITI%20LOGO.png" alt="TITI Official Logo">
+      <h3>TAHIDI INTERNATIONAL TRAINING INSTITUTE</h3>
+      <p class="footer-motto">BREAKING THE LIMITS</p>
+      <p class="footer-description">
+        Committed to quality education, practical training and professional
+        development.
+      </p>
     </div>
 
-    <div class="footer-bottom">
-      <div class="copyright">
-        © <span id="year"></span> Tahidi International Training Institute.
-        All Rights Reserved.
-      </div>
+    <!-- COLUMN TWO: QUICK LINKS -->
+    <div class="footer-column">
+      <h3>QUICK LINKS</h3>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About the Institute</a></li>
+        <li><a href="#programmes">Academic Programmes</a></li>
+        <li><a href="#admissions">Admissions</a></li>
+        <li><a href="#gallery">Our Campus</a></li>
+        <li><a href="#contact">Contact Us</a></li>
+        <li><a href="apply.html">Apply Online</a></li>
+      </ul>
     </div>
+
+    <!-- COLUMN THREE: CONTACT INFORMATION -->
+    <div class="footer-column">
+      <h3>CONTACT INFORMATION</h3>
+
+      <p>
+        <strong>Telephone:</strong>
+        <a href="tel:+256776433303">+256 776 433303</a>
+      </p>
+
+      <p>
+        <strong>Email:</strong>
+        <a href="mailto:tahidiinternationalinstitute@gmail.com">
+          tahidiinternationalinstitute@gmail.com
+        </a>
+      </p>
+
+      <p>
+        <strong>Location:</strong><br>
+        Nangwe near Bilal High School,<br>
+        Busia, Uganda
+      </p>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    <p class="copyright">
+      &copy; <span id="footer-year"></span>
+      Tahidi International Training Institute. All Rights Reserved.
+    </p>
   </div>
 </footer>
 
 <script>
+/* HERO SLIDESHOW */
 const slides = document.querySelectorAll('.slide');
 let currentSlide = 0;
 
@@ -938,6 +949,7 @@ if (slides.length > 1) {
   }, 5000);
 }
 
+/* MOBILE NAVIGATION */
 const menuToggle = document.getElementById('menuToggle');
 const mainNav = document.getElementById('mainNav');
 
@@ -945,13 +957,16 @@ menuToggle.addEventListener('click', () => {
   mainNav.classList.toggle('open');
 });
 
+/* CLOSE MOBILE MENU AFTER CLICK */
 document.querySelectorAll('#mainNav a').forEach(link => {
   link.addEventListener('click', () => {
     mainNav.classList.remove('open');
   });
 });
 
-document.getElementById('year').textContent = new Date().getFullYear();
+/* AUTOMATIC COPYRIGHT YEAR */
+document.getElementById('footer-year').textContent =
+  new Date().getFullYear();
 </script>
 
 </body>
