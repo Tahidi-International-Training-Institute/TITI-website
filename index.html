@@ -78,8 +78,8 @@ header {
 }
 
 .brand img {
-  width: 76px;
-  height: 76px;
+  width: 82px;
+  height: 82px;
   object-fit: contain;
 }
 
@@ -426,18 +426,54 @@ section { padding: 62px 0; }
   margin-bottom: 7px;
 }
 
-/* FOOTER */
+/* FOOTER - ROYAL MEDIA INSPIRED */
 footer {
   background: #091B3D;
   color: white;
-  padding: 35px 0 15px;
-  text-align: center;
+  padding: 42px 0 18px;
+  text-align: left;
+}
+
+.footer-top {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 45px;
+  padding-bottom: 28px;
+}
+
+.footer-column h3 {
+  color: white;
+  font-size: 16px;
+  font-weight: 800;
+  text-transform: uppercase;
+  margin-bottom: 17px;
+  letter-spacing: .6px;
+}
+
+.footer-column p,
+.footer-column a {
+  display: block;
+  color: #d5dbea;
+  font-size: 13px;
+  line-height: 1.9;
+  overflow-wrap: anywhere;
+  transition: .2s;
+}
+
+.footer-column a:hover {
+  color: var(--gold);
+}
+
+.footer-column .footer-email {
+  overflow-wrap: anywhere;
 }
 
 .footer-name {
-  font-size: 22px;
-  font-weight: 800;
   color: white;
+  font-size: 19px;
+  font-weight: 800;
+  line-height: 1.3;
+  margin-bottom: 5px;
 }
 
 .footer-motto {
@@ -448,19 +484,13 @@ footer {
   margin: 5px 0 15px;
 }
 
-.footer-links {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 20px;
-  margin: 15px 0;
-  font-size: 13px;
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,.15);
+  padding-top: 15px;
+  text-align: center;
 }
 
 .copyright {
-  border-top: 1px solid rgba(255,255,255,.15);
-  margin-top: 20px;
-  padding-top: 14px;
   font-size: 12px;
   color: #cbd3e0;
 }
@@ -502,6 +532,11 @@ footer {
   .about-grid { grid-template-columns: 1fr; }
   .programme-grid { grid-template-columns: repeat(2, 1fr); }
   .quick-grid { grid-template-columns: repeat(2, 1fr); }
+
+  .footer-top {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+  }
 }
 
 @media (max-width: 560px) {
@@ -532,6 +567,15 @@ footer {
   .contact-grid { grid-template-columns: 1fr; }
 
   .admissions h2 { font-size: 25px; }
+
+  .footer-top {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+
+  footer {
+    padding-top: 32px;
+  }
 }
 </style>
 </head>
@@ -760,20 +804,70 @@ footer {
   </section>
 </main>
 
+<!-- TITI FOOTER -->
 <footer>
   <div class="container">
-    <div class="footer-name">TAHIDI INTERNATIONAL TRAINING INSTITUTE</div>
-    <div class="footer-motto">BREAKING THE LIMITS</div>
-    <div class="footer-links">
-      <a href="#home">Home</a>
-      <a href="#about">About</a>
-      <a href="#programmes">Programmes</a>
-      <a href="#admissions">Admissions</a>
-      <a href="#contact">Contact</a>
+
+    <div class="footer-top">
+
+      <!-- ABOUT US -->
+      <div class="footer-column">
+        <div class="footer-name">
+          TAHIDI INTERNATIONAL TRAINING INSTITUTE
+        </div>
+        <div class="footer-motto">BREAKING THE LIMITS</div>
+
+        <h3>About Us</h3>
+        <a href="#about">About TITI</a>
+        <a href="#programmes">Our Programmes</a>
+        <a href="#admissions">Admissions</a>
+        <a href="#gallery">Our Campus</a>
+        <a href="#contact">Contact Us</a>
+      </div>
+
+      <!-- CONTACT INFO -->
+      <div class="footer-column">
+        <h3>Contact Info</h3>
+
+        <p>
+          <strong>Contact:</strong><br>
+          <a href="tel:+256776433303">+256 776 433303</a>
+        </p>
+
+        <p>
+          <strong>Email:</strong><br>
+          <a class="footer-email" href="mailto:tahidiinternationalinstitute@gmail.com">
+            tahidiinternationalinstitute@gmail.com
+          </a>
+        </p>
+
+        <p>
+          <strong>Location:</strong><br>
+          Nangwe near Bilal High School,<br>
+          Busia, Uganda
+        </p>
+      </div>
+
+      <!-- OUR SERVICES -->
+      <div class="footer-column">
+        <h3>Our Services</h3>
+        <a href="#programmes">Academic Programmes</a>
+        <a href="#programmes">Certificate and Diploma Programmes</a>
+        <a href="#admissions">Student Admissions</a>
+        <a href="#contact">Admissions Enquiries</a>
+        <a href="#gallery">Campus Information</a>
+        <a href="#contact">Student Support</a>
+      </div>
+
     </div>
-    <div class="copyright">
-      © <span id="year"></span> Tahidi International Training Institute. All Rights Reserved.
+
+    <div class="footer-bottom">
+      <div class="copyright">
+        © <span id="year"></span> Tahidi International Training Institute.
+        All Rights Reserved.
+      </div>
     </div>
+
   </div>
 </footer>
 
