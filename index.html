@@ -428,12 +428,12 @@ section { padding: 62px 0; }
   margin-bottom: 7px;
 }
 
-/* PREMIUM TITI FOOTER */
+/* TITI PROFESSIONAL FOOTER */
 .site-footer {
   background: #091B3D;
   color: #FFFFFF;
-  border-top: 5px solid var(--gold);
-  padding: 55px 0 0;
+  border-top: 6px solid var(--gold);
+  padding: 65px 0 0;
   text-align: left;
 }
 
@@ -441,57 +441,60 @@ section { padding: 62px 0; }
   display: grid;
   grid-template-columns: 1.1fr 0.9fr 1.35fr;
   gap: 48px;
-  padding-bottom: 45px;
+  padding-bottom: 55px;
   align-items: start;
 }
 
+/* FOOTER BRAND */
 .footer-brand img {
-  width: 115px;
-  height: 115px;
+  width: 140px;
+  height: 140px;
   object-fit: contain;
   background: white;
   border-radius: 5px;
-  padding: 5px;
-  margin-bottom: 16px;
+  padding: 6px;
+  margin-bottom: 20px;
 }
 
 .footer-brand h3 {
   color: white;
-  font-size: 18px;
-  font-weight: 700;
-  line-height: 1.5;
+  font-size: 23px;
+  font-weight: 800;
+  line-height: 1.45;
 }
 
 .footer-motto {
   color: var(--gold);
-  font-size: 13px;
-  font-weight: 700;
+  font-size: 16px;
+  font-weight: 800;
   letter-spacing: 2px;
-  margin-top: 8px;
+  margin-top: 12px;
 }
 
 .footer-brand p.footer-description {
   color: #D5DBEA;
-  font-size: 14px;
-  line-height: 1.85;
-  margin-top: 15px;
-  max-width: 330px;
+  font-size: 17px;
+  line-height: 1.9;
+  margin-top: 18px;
+  max-width: 360px;
 }
 
+/* FOOTER HEADINGS */
 .footer-column h3 {
   color: var(--gold);
-  font-size: 17px;
+  font-size: 21px;
   font-weight: 800;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
   letter-spacing: .5px;
-  padding-bottom: 11px;
-  border-bottom: 1px solid rgba(212,175,55,.35);
+  padding-bottom: 13px;
+  border-bottom: 2px solid rgba(212,175,55,.45);
 }
 
+/* FOOTER LINKS AND CONTACT TEXT */
 .footer-column p,
 .footer-column a {
-  color: #D5DBEA;
-  font-size: 14px;
+  color: #E0E5F0;
+  font-size: 17px;
   line-height: 2;
   text-decoration: none;
   overflow-wrap: anywhere;
@@ -505,7 +508,7 @@ section { padding: 62px 0; }
 }
 
 .footer-column li {
-  margin-bottom: 11px;
+  margin-bottom: 14px;
 }
 
 .footer-column li a {
@@ -515,8 +518,9 @@ section { padding: 62px 0; }
 .footer-column li a::before {
   content: "›";
   color: var(--gold);
-  margin-right: 8px;
-  font-weight: 700;
+  margin-right: 11px;
+  font-size: 21px;
+  font-weight: 800;
 }
 
 .footer-column a:hover {
@@ -524,37 +528,39 @@ section { padding: 62px 0; }
 }
 
 .footer-column p {
-  margin-bottom: 17px;
+  margin-bottom: 22px;
 }
 
 .footer-column p strong {
   color: white;
-  font-size: 15px;
-  font-weight: 700;
+  font-size: 18px;
+  font-weight: 800;
 }
 
 .footer-contact-link {
   display: inline-block;
-  color: #D5DBEA;
+  color: #E0E5F0;
   overflow-wrap: anywhere;
 }
 
 .footer-website {
   color: var(--gold) !important;
-  font-weight: 600;
+  font-weight: 700;
 }
 
+/* COPYRIGHT */
 .footer-bottom {
-  border-top: 1px solid rgba(255,255,255,.18);
+  border-top: 1px solid rgba(255,255,255,.22);
   text-align: center;
-  padding: 20px 10px;
-  background: rgba(0,0,0,.12);
+  padding: 25px 15px;
+  background: rgba(0,0,0,.18);
 }
 
 .copyright {
-  font-size: 13px;
-  color: #CBD3E0;
-  letter-spacing: .3px;
+  font-size: 16px;
+  color: #E0E5F0;
+  letter-spacing: .4px;
+  line-height: 1.8;
 }
 
 /* RESPONSIVE DESIGN */
@@ -615,7 +621,7 @@ section { padding: 62px 0; }
 
   .footer-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 30px;
+    gap: 38px;
   }
 
   .footer-brand {
@@ -623,7 +629,7 @@ section { padding: 62px 0; }
   }
 
   .footer-brand p.footer-description {
-    max-width: 450px;
+    max-width: 550px;
   }
 }
 
@@ -675,9 +681,11 @@ section { padding: 62px 0; }
 
   .admissions h2 { font-size: 25px; }
 
+  /* MOBILE FOOTER: KEEP ALL FOOTER TEXT LARGE */
   .footer-grid {
     grid-template-columns: 1fr;
-    gap: 28px;
+    gap: 35px;
+    padding-bottom: 40px;
   }
 
   .footer-brand {
@@ -685,29 +693,61 @@ section { padding: 62px 0; }
   }
 
   .footer-brand img {
-    width: 100px;
-    height: 100px;
+    width: 125px;
+    height: 125px;
+    margin-bottom: 18px;
   }
 
-  .footer-brand h3 { font-size: 17px; }
+  .footer-brand h3 {
+    font-size: 21px;
+    line-height: 1.5;
+  }
+
+  .footer-motto {
+    font-size: 15px;
+    letter-spacing: 1.5px;
+  }
 
   .footer-brand p.footer-description {
-    font-size: 14px;
+    font-size: 16px;
+    line-height: 1.9;
+    max-width: 100%;
   }
 
   .footer-column h3 {
-    font-size: 16px;
+    font-size: 19px;
+    margin-bottom: 20px;
   }
 
   .footer-column p,
   .footer-column a {
-    font-size: 14px;
+    font-size: 16px;
+    line-height: 2;
   }
 
-  .site-footer { padding-top: 38px; }
+  .footer-column p strong {
+    font-size: 17px;
+  }
+
+  .footer-column li {
+    margin-bottom: 12px;
+  }
+
+  .footer-column p {
+    margin-bottom: 19px;
+  }
+
+  .site-footer {
+    padding-top: 45px;
+  }
 
   .footer-bottom {
-    padding: 18px 10px;
+    padding: 22px 15px;
+  }
+
+  .copyright {
+    font-size: 14px;
+    line-height: 1.8;
   }
 }
 </style>
