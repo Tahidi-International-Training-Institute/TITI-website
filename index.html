@@ -36,7 +36,6 @@ body {
 }
 
 a { text-decoration: none; color: inherit; }
-
 img { max-width: 100%; display: block; }
 
 .container {
@@ -64,7 +63,7 @@ header {
 }
 
 .header-inner {
-  min-height: 108px;
+  min-height: 122px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -78,8 +77,8 @@ header {
 }
 
 .brand img {
-  width: 112px;
-  height: 112px;
+  width: 130px;
+  height: 130px;
   object-fit: contain;
   flex-shrink: 0;
 }
@@ -431,8 +430,9 @@ section { padding: 62px 0; }
 footer {
   background: #091B3D;
   color: white;
-  padding: 52px 0 22px;
+  padding: 55px 0 22px;
   text-align: left;
+  border-top: 4px solid var(--gold);
 }
 
 .footer-top {
@@ -440,10 +440,11 @@ footer {
   grid-template-columns: 1.2fr 1fr 1fr;
   gap: 55px;
   padding-bottom: 38px;
+  align-items: start;
 }
 
 .footer-column h3 {
-  color: white;
+  color: var(--gold);
   font-size: 17px;
   font-weight: 800;
   text-transform: uppercase;
@@ -473,8 +474,8 @@ footer {
 }
 
 .footer-brand img {
-  width: 82px;
-  height: 82px;
+  width: 92px;
+  height: 92px;
   object-fit: contain;
   background: white;
   border-radius: 5px;
@@ -502,8 +503,8 @@ footer {
 }
 
 .footer-bottom {
-  border-top: 1px solid rgba(255,255,255,.18);
-  padding-top: 18px;
+  border-top: 1px solid rgba(255,255,255,.22);
+  padding-top: 19px;
   text-align: center;
 }
 
@@ -514,11 +515,11 @@ footer {
 
 /* RESPONSIVE DESIGN */
 @media (max-width: 850px) {
-  .header-inner { min-height: 90px; }
+  .header-inner { min-height: 100px; }
 
   .brand img {
-    width: 84px;
-    height: 84px;
+    width: 100px;
+    height: 100px;
   }
 
   .brand-text h1 { font-size: 17px; }
@@ -559,13 +560,13 @@ footer {
 @media (max-width: 560px) {
   .topbar { font-size: 11px; }
 
-  .header-inner { min-height: 78px; }
+  .header-inner { min-height: 88px; }
 
   .brand { gap: 8px; }
 
   .brand img {
-    width: 70px;
-    height: 70px;
+    width: 82px;
+    height: 82px;
   }
 
   .brand-text h1 { font-size: 14px; }
@@ -606,13 +607,13 @@ footer {
   }
 
   .footer-brand img {
-    width: 70px;
-    height: 70px;
+    width: 82px;
+    height: 82px;
   }
 
   .footer-name { font-size: 16px; }
 
-  footer { padding-top: 38px; }
+  footer { padding-top: 42px; }
 }
 </style>
 </head>
@@ -847,7 +848,6 @@ footer {
 
     <div class="footer-top">
 
-      <!-- ABOUT US AND BRANDING -->
       <div class="footer-column">
         <div class="footer-brand">
           <img src="TITI%20LOGO.png" alt="TITI Official Logo">
@@ -868,7 +868,6 @@ footer {
         <a href="#contact">Contact Us</a>
       </div>
 
-      <!-- CONTACT INFORMATION -->
       <div class="footer-column">
         <h3>Contact Info</h3>
 
@@ -891,7 +890,6 @@ footer {
         </p>
       </div>
 
-      <!-- SERVICES -->
       <div class="footer-column">
         <h3>Our Services</h3>
         <a href="#programmes">Academic Programmes</a>
